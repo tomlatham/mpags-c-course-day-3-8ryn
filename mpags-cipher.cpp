@@ -9,6 +9,7 @@
 #include "ProcessCommandLine.hpp"
 #include "RunCaesarCipher.hpp"
 #include "CaesarCipher.hpp"
+#include "CipherMode.hpp"
   
 // Main function of the mpags-cipher program
 int main(int argc, char* argv[])
@@ -88,16 +89,13 @@ int main(int argc, char* argv[])
     }
   }
 
-  // We have the key as a string, but the Caesar cipher needs an unsigned long, so we first need to convert it
-  // We default to having a key of 0, i.e. no encryption, if no key was provided on the command line
-  size_t caesar_key {0};
-  if ( ! settings.cipher_key.empty() ) {
-    CaesarCipher cipher{settings.cipher_key};
-    caesar_key = cipher.key_;
-  }
 
-  // Run the Caesar cipher (using the specified key and encrypt/decrypt flag) on the input text
-  std::string outputText { runCaesarCipher( inputText, caesar_key, settings.encrypt ) };
+  //Creates a CaesarCipher instance if key is not defined it is set to 0
+  CaesarCipher cipher{settings.cipher_key.empty() ? "0" : settings.cipher_key};
+
+
+  // Run the Caesar cipher (using the key of cipher and the given encrypt/decrypt flag) on the input text
+  std::string outputText { cipher.applyCipher( inputText, settings.encrypt ) };
 
   // Output the transliterated text
   if (!settings.outputFile.empty()) {
