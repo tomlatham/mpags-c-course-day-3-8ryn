@@ -7,4 +7,4 @@ enum class CipherMode {
   Decrypt
 };
 
-#endif MPAGSCIPHER_CIPHERMODE_HPP
+#endif //MPAGSCIPHER_CIPHERMODE_HPP
