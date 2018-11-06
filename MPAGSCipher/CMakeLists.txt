@@ -8,8 +8,6 @@ add_library(MPAGSCipher STATIC
   ProcessCommandLine.cpp
   TransformChar.hpp
   TransformChar.cpp
-  RunCaesarCipher.hpp
-  RunCaesarCipher.cpp
   CipherMode.hpp
   )
 

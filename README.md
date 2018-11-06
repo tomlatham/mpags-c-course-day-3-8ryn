@@ -97,17 +97,27 @@ follows:
 
 ```
 MPAGS-Code
-├── README.md             This file, describes the project
-├── LICENSE               License file, in our case MIT
-├── CMakeLists.txt        CMake build script
-├── mpags-cipher.cpp      Main program C++ source file
-├── MPAGSCipher           Subdirectory for MPAGSCipher library code
-|   └── ProcessCommandLine.cpp
-|   └── ProcessCommandLine.hpp
-|   └── RunCaesarCipher.cpp
-|   └── RunCaesarCipher.hpp
-|   └── TransformChar.cpp
-|   └── TransformChar.hpp
+├── CMakeLists.txt		This file, describes the project
+├── LICENSE			Licence file, in our case MIT
+├── MPAGSCipher			Subdirectory for MPAGSCipher library code
+│   ├── CaesarCipher.cpp
+│   ├── CaesarCipher.hpp
+│   ├── CipherMode.hpp
+│   ├── CMakeLists.txt
+│   ├── ProcessCommandLine.cpp
+│   ├── ProcessCommandLine.hpp
+│   ├── TransformChar.cpp
+│   └── TransformChar.hpp
+├── mpags-cipher.cpp		Main program C++ source file
+├── README.md			This file, describes the project
+└── Testing			Subdirectory for unit testing MPAGSCipher library code
+    ├── catch.hpp
+    ├── CMakeLists.txt
+    ├── testCaesarCipher.cpp
+    ├── testCatch.cpp
+    ├── testHello.cpp
+    ├── testProcessCommandLine.cpp
+    └── testTransformChar.cpp
 ```
 
 # Copying
