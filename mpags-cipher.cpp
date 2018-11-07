@@ -89,8 +89,8 @@ int main(int argc, char* argv[])
   }
 
 
-  //Creates a CaesarCipher instance, if key is not defined it is set to 0
-  CaesarCipher cipher{settings.cipher_key.empty() ? "0" : settings.cipher_key};
+  // Creates a CaesarCipher instance
+  CaesarCipher cipher{settings.cipher_key};
 
 
   // Run the Caesar cipher (using the key of cipher and the given encrypt/decrypt flag) on the input text

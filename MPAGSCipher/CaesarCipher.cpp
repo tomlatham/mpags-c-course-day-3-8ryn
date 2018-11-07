@@ -1,37 +1,35 @@
+// Standard library includes
+#include <iostream>
+
+// Out project headers
 #include "CaesarCipher.hpp"
 
 
 CaesarCipher::CaesarCipher(const size_t key)
-  :key_{key}{
+  : key_{key % alphabetSize_}
+{
 }
 
 CaesarCipher::CaesarCipher(const std::string& key)
-:key_{0}
+  : key_{0}
 {
-  bool error{false};
-  for ( const auto& elem : key ) {
-    if ( ! std::isdigit(elem) ) {
-      std::cerr << "[error] cipher key must be an unsigned long integer for Caesar cipher,\
-\n"
-		<< "        the supplied key (" << key << ") could not be \
-successfully converted and key has been set to 0" << std::endl;
-      error = true;
-      break;
+  if ( ! key.empty() ) {
+    for ( const auto& elem : key ) {
+      if ( ! std::isdigit(elem) ) {
+	std::cerr << "[error] cipher key must be an unsigned long integer for Caesar cipher,\n"
+	          << "        the supplied key (" << key << ") could not be successfully converted and key has been set to 0" << std::endl;
+	return;
+      }
     }
-  }
-  if(!error){
-    key_ = std::stoul(key);
+    key_ = std::stoul(key) % alphabetSize_;
   }
 }
 
-std::string CaesarCipher::applyCipher(const std::string& inputText, const CipherMode encrypt){
-
+std::string CaesarCipher::applyCipher(const std::string& inputText, const CipherMode encrypt) const
+{
   // Create the output string
   std::string outputText {};
 
-  // Make sure that the key is in the range 0 - 25
-  const size_t truncatedKey { key_ % alphabetSize_ };
-  
   // Loop over the input text
   char processedChar {'x'};
   for ( const auto& origChar : inputText ) {
@@ -46,9 +44,9 @@ std::string CaesarCipher::applyCipher(const std::string& inputText, const Cipher
 	// or decrypting) and determine the new character
 	// Can then break out of the loop over the alphabet
 	if ( encrypt == CipherMode::Encrypt ) {
-	  processedChar = alphabet_[ (i + truncatedKey) % alphabetSize_ ];
+	  processedChar = alphabet_[ (i + key_) % alphabetSize_ ];
 	} else {
-	  processedChar = alphabet_[ (i + alphabetSize_ - truncatedKey) % alphabetSize_ ];
+	  processedChar = alphabet_[ (i + alphabetSize_ - key_) % alphabetSize_ ];
 	}
 	break;
       }
@@ -59,5 +57,4 @@ std::string CaesarCipher::applyCipher(const std::string& inputText, const Cipher
   }
 
   return outputText;
-
 }
